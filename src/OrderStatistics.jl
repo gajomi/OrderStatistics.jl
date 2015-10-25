@@ -6,9 +6,11 @@ using IndependentRandomSequences
 import Base:length,rand,mean,max,min,maximum,minimum
 import Distributions:pdf,logpdf,cdf,quantile,insupport
 
-export orderstatistic,orderstatistics,
-        OrderStatistic
+export AbstractOrderStatistic,AbstractScalarOrderStatistic,AbstractJointOrderStatistic,
+      ScalarOrderStatistic,
+      orderstatistic,orderstatistics,OrderStatistic
 
+include("abstract.jl")
 include("ScalarOrderStatistic.jl")
 include("generic.jl")
 
