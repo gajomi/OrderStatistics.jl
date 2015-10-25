@@ -1,7 +1,7 @@
 #abstract types
 abstract AbstractOrderStatistic{F,S} <: Distribution{F,S}
-typealias AbstractScalarOrderStatistic{F} AbstractOrderStatistic{Univariate,F}
-typealias AbstractJointOrderStatistic{F} AbstractOrderStatistic{Multivariate,F}
+typealias AbstractScalarOrderStatistic{S} AbstractOrderStatistic{Univariate,S}
+typealias AbstractJointOrderStatistic{S} AbstractOrderStatistic{Multivariate,S}
 
 function rand(X::AbstractScalarOrderStatistic)
     samples = sort(rand(X))

@@ -1,15 +1,19 @@
 
-type ScalarOrderStatistic{F,T<:MultivariateDistribution} <: AbstractScalarOrderStatistic{F}
-    sequence::T
+type ScalarOrderStatistic{D,S<:MultivariateDistribution} <: AbstractScalarOrderStatistic{D}
+    sequence::S
     order::Int64
 end
-function ScalarOrderStatistic{F,T}(sequence::IIDRandomSequence{F,T},order::Int64)
-    return ScalarOrderStatistic{F,IIDRandomSequence{F,T}}(sequence,order)
+function ScalarOrderStatistic{D,S}(sequence::IIDRandomSequence{D,S},order::Int64)
+    return ScalarOrderStatistic{D,IIDRandomSequence{D,S}}(sequence,order)
 end
 
+typealias IIDScalarOrderStatistic{D<:ValueSupport,T<:UnivariateDistribution} ScalarOrderStatistic{D,IIDRandomSequence{D,T}}
+typealias IIDContinuousScalarOrderStatistic{T<:ContinuousUnivariateDistribution} IIDScalarOrderStatistic{Continuous,T}
+typealias IIDDiscreteScalarOrderStatistic{T<:DiscreteUnivariateDistribution} IIDScalarOrderStatistic{Discrete,T}
+
 #IID SEQUENCES
-minimum{T<:ContinuousUnivariateDistribution}(X::ScalarOrderStatistic{Continuous,IIDRandomSequence{Continuous,T}}) = minimum(X.sequence.d)
-maximum{T<:ContinuousUnivariateDistribution}(X::ScalarOrderStatistic{Continuous,IIDRandomSequence{Continuous,T}}) = maximum(X.sequence.d)
+minimum{T<:ContinuousUnivariateDistribution}(X::IIDContinuousScalarOrderStatistic{T}) = minimum(X.sequence.d)
+maximum{T<:ContinuousUnivariateDistribution}(X::IIDContinuousScalarOrderStatistic{T}) = maximum(X.sequence.d)
 
 function cdf{T<:ContinuousUnivariateDistribution}(X::ScalarOrderStatistic{Continuous,IIDRandomSequence{Continuous,T}}, x::Real)
   P,n,k = cdf(X.sequence.d,x), length(X.sequence), X.order
