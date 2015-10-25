@@ -8,6 +8,7 @@ import Distributions:pdf,logpdf,cdf,quantile,insupport
 
 export AbstractOrderStatistic,AbstractScalarOrderStatistic,AbstractJointOrderStatistic,
       ScalarOrderStatistic,
+      sequence,order,
       orderstatistic,orderstatistics,OrderStatistic
 
 include("abstract.jl")

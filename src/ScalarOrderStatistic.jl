@@ -11,6 +11,9 @@ typealias IIDScalarOrderStatistic{D<:ValueSupport,T<:UnivariateDistribution} Sca
 typealias IIDContinuousScalarOrderStatistic{T<:ContinuousUnivariateDistribution} IIDScalarOrderStatistic{Continuous,T}
 typealias IIDDiscreteScalarOrderStatistic{T<:DiscreteUnivariateDistribution} IIDScalarOrderStatistic{Discrete,T}
 
+sequence(X::ScalarOrderStatistic) = X.sequence
+order(X::ScalarOrderStatistic) = X.order
+
 #IID SEQUENCES (having probelsm with Discrete/Continuous DRY due to ambiguity creation)
 minimum{T<:ContinuousUnivariateDistribution}(X::IIDContinuousScalarOrderStatistic{T}) = minimum(X.sequence.d)
 minimum{T<:DiscreteUnivariateDistribution}(X::IIDDiscreteScalarOrderStatistic{T}) = minimum(X.sequence.d)
