@@ -4,15 +4,17 @@ using Distributions
 using IndependentRandomSequences
 
 import Base:length,rand,mean,max,min,maximum,minimum
-import Distributions:pdf,logpdf,cdf,quantile,insupport
+import Distributions:_rand!,pdf,_logpdf,logpdf,cdf,quantile,insupport
 
 export AbstractOrderStatistic,AbstractScalarOrderStatistic,AbstractJointOrderStatistic,
-      ScalarOrderStatistic,
-      sequence,order,
-      orderstatistic,orderstatistics,OrderStatistic
+      ScalarOrderStatistic,JointOrderStatistic,
+      sequence,order,orders,
+      orderstatistic,orderstatistics,jointorderstatistic
 
 include("abstract.jl")
+include("helpers.jl")
 include("ScalarOrderStatistic.jl")
+include("JointOrderStatistic.jl")
 include("generic.jl")
 
 dnames = ["uniform"]
