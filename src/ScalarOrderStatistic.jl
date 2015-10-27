@@ -20,6 +20,11 @@ minimum{T<:DiscreteUnivariateDistribution}(X::IIDDiscreteScalarOrderStatistic{T}
 maximum{T<:ContinuousUnivariateDistribution}(X::IIDContinuousScalarOrderStatistic{T}) = maximum(X.sequence.d)
 maximum{T<:DiscreteUnivariateDistribution}(X::IIDDiscreteScalarOrderStatistic{T}) = maximum(X.sequence.d)
 
+function rand(X::ScalarOrderStatistic)
+    samples = sort(rand(sequence(X)))
+    return samples[X.order]
+end
+
 function cdf{T<:ContinuousUnivariateDistribution}(X::IIDContinuousScalarOrderStatistic{T}, x::Real)
   P,n,k = cdf(X.sequence.d,x), length(X.sequence), X.order
   return ccdf(Binomial(n,P),k-1)
@@ -33,4 +38,9 @@ function pdf{T<:ContinuousUnivariateDistribution}(X::ScalarOrderStatistic{Contin
   P,p,n,k = cdf(X.sequence.d,x), pdf(X.sequence.d,x),length(X.sequence),X.order
   coeff = Γ(n+1)/(Γ(k)*Γ(n-k+1))
   return coeff*P^(k-1)*(1.-P)^(n-k)*p
+end
+
+function mean(X::ScalarOrderStatistic)
+    f = x -> pdf(X,x)*x
+    return quadgk(f,minimum(X),maximum(X))[1]#this seems to be rather ill conditioned
 end

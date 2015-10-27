@@ -3,8 +3,9 @@ abstract AbstractOrderStatistic{F,S} <: Distribution{F,S}
 typealias AbstractScalarOrderStatistic{S} AbstractOrderStatistic{Univariate,S}
 typealias AbstractJointOrderStatistic{S} AbstractOrderStatistic{Multivariate,S}
 
+
 function rand(X::AbstractScalarOrderStatistic)
-    samples = sort(rand(X))
+    samples = sort(rand(sequence(X)))
     return samples[X.order]
 end
 
