@@ -14,7 +14,7 @@ typealias IIDDiscreteScalarOrderStatistic{T<:DiscreteUnivariateDistribution} IID
 sequence(X::ScalarOrderStatistic) = X.sequence
 order(X::ScalarOrderStatistic) = X.order
 
-#IID SEQUENCES (having probelsm with Discrete/Continuous DRY due to ambiguity creation)
+# IID SEQUENCES (having probelsm with Discrete/Continuous DRY due to ambiguity creation)
 minimum{T<:ContinuousUnivariateDistribution}(X::IIDContinuousScalarOrderStatistic{T}) = minimum(X.sequence.d)
 minimum{T<:DiscreteUnivariateDistribution}(X::IIDDiscreteScalarOrderStatistic{T}) = minimum(X.sequence.d)
 maximum{T<:ContinuousUnivariateDistribution}(X::IIDContinuousScalarOrderStatistic{T}) = maximum(X.sequence.d)
@@ -31,7 +31,6 @@ end
 
 function pdf{T<:ContinuousUnivariateDistribution}(X::ScalarOrderStatistic{Continuous,IIDRandomSequence{Continuous,T}}, x::Real)
   P,p,n,k = cdf(X.sequence.d,x), pdf(X.sequence.d,x),length(X.sequence),X.order
-  Γ = gamma
   coeff = Γ(n+1)/(Γ(k)*Γ(n-k+1))
   return coeff*P^(k-1)*(1.-P)^(n-k)*p
 end
