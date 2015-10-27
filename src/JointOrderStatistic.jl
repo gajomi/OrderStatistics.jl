@@ -22,9 +22,13 @@ typealias IIDJointOrderStatistic{D<:ValueSupport,T<:UnivariateDistribution} Join
 typealias IIDContinuousJointOrderStatistic{T<:ContinuousUnivariateDistribution} IIDJointOrderStatistic{Continuous,T}
 typealias IIDDiscreteJointOrderStatistic{T<:DiscreteUnivariateDistribution} IIDJointOrderStatistic{Discrete,T}
 
-function _logpdf{T<:Real}(X::IIDContinuousJointOrderStatistic, x::AbstractVector{T})
+function _logpdf{T<:Real,S<:ContinuousUnivariateDistribution}(X::IIDContinuousJointOrderStatistic{S}, x::AbstractVector{T})
   N,ks = length(sequence(X)),orders(X)
   logps,Ps = logpdf(X.sequence.d,x),cdf(X.sequence.d,x)
   ΔPs,Δqs = diff([0.;Ps;1.]),diff([0;ks;ks[end]+1])-1
   return lfact(N)+sum(logps)+sum(Δqs.*log(ΔPs))- sum(lfact(Δqs))
+end
+
+function mean(X::IIDJointOrderStatistic)
+  return map(mean,[ScalarOrderStatistic(sequence(X),order) for order in orders(X)])
 end

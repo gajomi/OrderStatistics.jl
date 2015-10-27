@@ -3,6 +3,8 @@ using IndependentRandomSequences
 using OrderStatistics
 using Base.Test
 
+Γ = gamma
+
 #
 #Quantitative tests for Uniform Case
 #
@@ -15,6 +17,13 @@ Vs = orderstatistics(sequence)
 @test map(mean,Vs) == collect(1:5)/6
 
 #joint order statistics
+fulljoint = jointorderstatistic(sequence)
+@test_approx_eq_eps(pdf(fulljoint,collect(1:N)/(N+1)),Γ(N+1),10^3*eps())
+for n=2:N
+  for orders=combinations(N,n)
+    @test mean(jointorderstatistic(sequence,orders)) == orders/(N+1)
+  end
+end
 
 
 #
