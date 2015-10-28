@@ -82,8 +82,9 @@ hstack(plot(empiricalpdfs...,theorypdfs...,
         Guide.XLabel("x"), Guide.YLabel("probablity density"),gajomitheme),
 plot(empiricalcdfs...,theorycdfs...,
         Guide.XLabel("x"), Guide.YLabel("cumulative probability"),gajomitheme))
-        ```
-![Image of Yaktocat](./funplot.png)
+```
+
+![Image of Yaktocat](https://github.com/gajomi/OrderStatistics.jl/blob/master/funplot.png)
 
 ### Low level API (subject to change)
 
