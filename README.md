@@ -3,7 +3,11 @@
 A package for working with [order statistics](https://en.wikipedia.org/wiki/Order_statistic) of random variables.
 
 ## Installation
-
+This module is not yet registered. To install run
+```julia
+Pkg.clone("https://github.com/gajomi/IndependentRandomSequences.jl")
+Pkg.clone("https://github.com/gajomi/OrderStatistics.jl")
+```
 
 ##Basic usage
 
