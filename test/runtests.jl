@@ -27,6 +27,13 @@ for N = 3:5
 
   #range
   @test mean(range(sequence)) == (N-1)/(N+1)
+
+  #spacing
+  @test map(mean,spacings(sequence)) == ones(N+1)/(N+1)
+
+  #jointspacing
+  @test mean(jointspacing(sequence)) == ones(N+1)/(N+1)
+
 end
 
 
