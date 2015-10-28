@@ -20,7 +20,7 @@ include("ScalarOrderStatistic.jl")
 include("JointOrderStatistic.jl")
 include("generic.jl")
 
-dnames = ["uniform"]
+dnames = ["uniform","exponential"]
 for dname in dnames
     include(joinpath("distributions", "$(dname).jl"))
 end

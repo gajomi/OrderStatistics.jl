@@ -3,6 +3,23 @@ type ScalarOrderStatistic{D,S<:MultivariateDistribution} <: AbstractScalarOrderS
     sequence::S
     order::Int64
 end
+
+sequence(X::ScalarOrderStatistic) = X.sequence
+order(X::ScalarOrderStatistic) = X.order
+
+function rand(X::ScalarOrderStatistic)
+    samples = sort(rand(sequence(X)))
+    return samples[X.order]
+end
+
+function mean(X::ScalarOrderStatistic)
+    f = x -> pdf(X,x)*x
+    return quadgk(f,minimum(X),maximum(X))[1]#this seems to be rather ill conditioned
+end
+
+#
+# IID SEQUENCES
+#
 function ScalarOrderStatistic{D,S}(sequence::IIDRandomSequence{D,S},order::Int64)
     return ScalarOrderStatistic{D,IIDRandomSequence{D,S}}(sequence,order)
 end
@@ -11,19 +28,12 @@ typealias IIDScalarOrderStatistic{D<:ValueSupport,T<:UnivariateDistribution} Sca
 typealias IIDContinuousScalarOrderStatistic{T<:ContinuousUnivariateDistribution} IIDScalarOrderStatistic{Continuous,T}
 typealias IIDDiscreteScalarOrderStatistic{T<:DiscreteUnivariateDistribution} IIDScalarOrderStatistic{Discrete,T}
 
-sequence(X::ScalarOrderStatistic) = X.sequence
-order(X::ScalarOrderStatistic) = X.order
-
-# IID SEQUENCES (having probelsm with Discrete/Continuous DRY due to ambiguity creation)
+# (having probelsm with Discrete/Continuous DRY due to ambiguity creation)
 minimum{T<:ContinuousUnivariateDistribution}(X::IIDContinuousScalarOrderStatistic{T}) = minimum(X.sequence.d)
 minimum{T<:DiscreteUnivariateDistribution}(X::IIDDiscreteScalarOrderStatistic{T}) = minimum(X.sequence.d)
 maximum{T<:ContinuousUnivariateDistribution}(X::IIDContinuousScalarOrderStatistic{T}) = maximum(X.sequence.d)
 maximum{T<:DiscreteUnivariateDistribution}(X::IIDDiscreteScalarOrderStatistic{T}) = maximum(X.sequence.d)
 
-function rand(X::ScalarOrderStatistic)
-    samples = sort(rand(sequence(X)))
-    return samples[X.order]
-end
 
 function cdf{T<:ContinuousUnivariateDistribution}(X::IIDContinuousScalarOrderStatistic{T}, x::Real)
   P,n,k = cdf(X.sequence.d,x), length(X.sequence), X.order
@@ -40,7 +50,9 @@ function pdf{T<:ContinuousUnivariateDistribution}(X::ScalarOrderStatistic{Contin
   return coeff*P^(k-1)*(1.-P)^(n-k)*p
 end
 
-function mean(X::ScalarOrderStatistic)
-    f = x -> pdf(X,x)*x
-    return quadgk(f,minimum(X),maximum(X))[1]#this seems to be rather ill conditioned
+#
+# INID sequence
+#
+function ScalarOrderStatistic{D,S}(sequence::INIDRandomSequence{D,S},order::Int64)
+    return ScalarOrderStatistic{D,INIDRandomSequence{D,S}}(sequence,order)
 end
