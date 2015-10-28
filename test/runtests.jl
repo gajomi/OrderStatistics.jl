@@ -37,12 +37,11 @@ for N = 3:5
 end
 
 
-
 #
 # Qualitative ordering tests
 #
 N = 5
-for X = [Uniform(),Normal()]
+for X = [Uniform(),Normal(),Exponential()]
   sequence = IIDRandomSequence(X,N)
 
   #scalar order statistics
