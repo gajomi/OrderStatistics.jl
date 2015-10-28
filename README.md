@@ -51,6 +51,13 @@ jointspacing(sequence)
 
 >>>Distributions.Dirichlet(alpha=[1.0,1.0,1.0,1.0])
 
+X,N = Bernoulli(),20
+sequence = IIDRandomSequence(X,N)
+Zs = orderstatistics(sequence)
+
+>>1x20 Array{Int64,2}:
+ 0  0  0  0  0  0  0  1  0  0  1  1  1  1  1  1  1  1  1  1
+
 Es = [Exponential(1./rate) for rate=1:3]
 sequence = INIDRandomSequence(Es)
 minE = min(sequence)
