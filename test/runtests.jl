@@ -5,8 +5,9 @@ using Base.Test
 
 Γ = gamma
 
+
 #
-#Quantitative tests for Uniform Case
+#Tests for Uniform Case
 #
 for N = 3:5
   U = Uniform()
@@ -18,10 +19,12 @@ for N = 3:5
 
   #joint order statistics
   fulljoint = jointorderstatistic(sequence)
+  @test jointorderstatistic(fulljoint) == fulljoint
   @test_approx_eq_eps(pdf(fulljoint,collect(1:N)/(N+1)),Γ(N+1),10^3*eps())
   for n=2:N
     for orders=combinations(N,n)
-      @test mean(jointorderstatistic(sequence,orders)) == orders/(N+1)
+      partialjoint = jointorderstatistic(sequence,orders)
+      @test mean(partialjoint ) == orders/(N+1)
     end
   end
 
@@ -33,6 +36,8 @@ for N = 3:5
 
   #jointspacing
   @test mean(jointspacing(sequence)) == ones(N+1)/(N+1)
+
+  #idempotency property
 
 end
 

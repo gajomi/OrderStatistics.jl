@@ -14,6 +14,14 @@ orderstatistics{T<:ContinuousUnivariateDistribution}(X::T,n::Int64) = orderstati
 #
 jointorderstatistic(X::MultivariateDistribution,orders::Vector{Int64}) = JointOrderStatistic(X,orders)
 jointorderstatistic(X::MultivariateDistribution) = jointorderstatistic(X,collect(1:length(X)))
+function jointorderstatistic(X::JointOrderStatistic)
+  fullorders = collect(1:length(X))
+  if orders(X) == fullorders
+    return X
+  else
+    error('not yet implemented (coming soon though)')
+  end
+end
 
 function jointorderstatistics(X::MultivariateDistribution,n::Integer)
   return imap(orders->jointorderstatistic(X,orders),combinations(1:length(X),n))
