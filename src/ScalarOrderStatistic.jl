@@ -4,11 +4,11 @@ type ScalarOrderStatistic{D,S<:MultivariateDistribution} <: AbstractScalarOrderS
     order::Int64
 end
 
-sequence(X::ScalarOrderStatistic) = X.sequence
+parentsequence(X::ScalarOrderStatistic) = X.sequence
 order(X::ScalarOrderStatistic) = X.order
 
 function rand(X::ScalarOrderStatistic)
-    samples = sort(rand(sequence(X)))
+    samples = sort(rand(parentsequence(X)))
     return samples[X.order]
 end
 

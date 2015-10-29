@@ -10,7 +10,7 @@ import Distributions:_rand!,pdf,_logpdf,logpdf,cdf,quantile,insupport
 
 export AbstractOrderStatistic,AbstractScalarOrderStatistic,AbstractJointOrderStatistic,
       ScalarOrderStatistic,JointOrderStatistic,
-      sequence,order,orders,
+      parentsequence,order,orders,
       orderstatistic,orderstatistics,jointorderstatistic,jointorderstatistics,
       spacing,spacings,jointspacing,jointspacing
 

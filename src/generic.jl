@@ -19,7 +19,7 @@ function jointorderstatistic(X::JointOrderStatistic)
   if orders(X) == fullorders
     return X
   else
-    error('not yet implemented (coming soon though)')
+    error("not yet implemented (coming soon though)")
   end
 end
 
