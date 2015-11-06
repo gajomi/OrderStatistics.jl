@@ -12,6 +12,8 @@ orderstatistics{T<:ContinuousUnivariateDistribution}(X::T,n::Int64) = orderstati
 #
 # joint order statistic methods
 #
+sort(X::MultivariateDistribution) = jointorderstatistic(X)
+
 jointorderstatistic(X::MultivariateDistribution,orders::Vector{Int64}) = JointOrderStatistic(X,orders)
 jointorderstatistic(X::MultivariateDistribution) = jointorderstatistic(X,collect(1:length(X)))
 function jointorderstatistic(X::JointOrderStatistic)

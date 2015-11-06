@@ -18,7 +18,7 @@ for N = 3:5
   @test map(mean,Vs) == collect(1:N)/(N+1)
 
   #joint order statistics
-  fulljoint = jointorderstatistic(sequence)
+  fulljoint = sort(sequence)
   @test jointorderstatistic(fulljoint) == fulljoint
   @test_approx_eq_eps(pdf(fulljoint,collect(1:N)/(N+1)),Γ(N+1),10^3*eps())
   for n=2:N
