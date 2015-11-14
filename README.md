@@ -1,11 +1,11 @@
 # OrderStatistics
+[![Build Status](https://travis-ci.org/gajomi/OrderStatistics.jl.svg?branch=master)](https://travis-ci.org/gajomi/OrderStatistics.jl)
 
 A package for working with [order statistics](https://en.wikipedia.org/wiki/Order_statistic) of random variables.
 
 ## Installation
 This module is not yet registered. To install run
 ```julia
-Pkg.clone("https://github.com/gajomi/IndependentRandomSequences.jl")
 Pkg.clone("https://github.com/gajomi/OrderStatistics.jl")
 ```
 
@@ -113,6 +113,3 @@ There are currently many holes in the basic fallback functionality. Check out th
 ### Inferential statistics
 
 At present the focus of this package is entirely on the probabilistic aspects of order statistics. However, as the name suggests, they are an important part of non-parametric statistics. For those with a vision of what this would looking like, please fork the repo! If you are interested in a specific limited bit of functionality related to inference please open an issue with your feature request.
-
-
-[![Build Status](https://travis-ci.org/gajomi/OrderStatistics.jl.svg?branch=master)](https://travis-ci.org/gajomi/OrderStatistics.jl)
