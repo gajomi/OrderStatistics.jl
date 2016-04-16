@@ -7,6 +7,7 @@ using IndependentRandomSequences
 
 import Base:length,rand,mean,max,min,maximum,minimum,range,sort
 import Distributions:_rand!,pdf,_logpdf,logpdf,cdf,quantile,insupport
+import Combinatorics:combinations
 
 export AbstractOrderStatistic,AbstractScalarOrderStatistic,AbstractJointOrderStatistic,
       ScalarOrderStatistic,JointOrderStatistic,

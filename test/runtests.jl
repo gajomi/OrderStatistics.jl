@@ -1,7 +1,9 @@
 using Distributions
 using IndependentRandomSequences
 using OrderStatistics
+using Combinatorics
 using Base.Test
+
 
 Γ = gamma
 
